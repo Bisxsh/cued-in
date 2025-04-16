@@ -12,20 +12,25 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <HeaderButton />
-            </Link>
-          ),
+          title: 'Home',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon fontAwesomeName="home" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="learn"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Learn',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon fontAwesomeName="book" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="report"
+        options={{
+          title: 'Report',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon materialIconName="auto-graph" color={color} />,
         }}
       />
     </Tabs>

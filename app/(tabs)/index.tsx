@@ -1,15 +1,16 @@
-import { Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { ScreenContent } from '~/components/ScreenContent';
+import DateRow from '~/components/index/DateRow';
+import HomeHeading from '~/components/index/Heading';
 
 export default function Home() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Tab One' }} />
-      <View style={styles.container}>
-        <ScreenContent path="app/(tabs)/index.tsx" title="Tab One" />
-      </View>
+      {/* <Stack.Screen options={{ title: 'Tab One' }} /> */}
+      <SafeAreaView style={styles.container}>
+        <HomeHeading />
+        <DateRow />
+      </SafeAreaView>
     </>
   );
 }
@@ -17,6 +18,8 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    // padding: 24,
+    margin: 24,
+    marginTop: 48,
   },
 });
