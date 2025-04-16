@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { COLOURS } from '~/components/Constats';
 import Separator from '~/components/Separator';
@@ -11,12 +11,13 @@ import HomeHeading from '~/components/index/Heading';
 export default function Home() {
   return (
     <SafeAreaView className="relative m-6 flex-1 bg-background">
-      <HomeHeading />
-      <DateRow />
-      <Separator text="HABITS" />
+      <ScrollView className="flex-1">
+        <HomeHeading />
+        <DateRow />
+        <Separator text="HABITS" />
 
-      <Habit title="My Habit" currProgress={50} targetProgress={100} intention="Stay healthy" />
-
+        <Habit title="My Habit" currProgress={50} targetProgress={100} intention="Stay healthy" />
+      </ScrollView>
       <TouchableOpacity className="absolute bottom-4 right-4 rounded-full bg-primary p-5">
         <MaterialIcons size={32} name="add" color={COLOURS.txt} />
       </TouchableOpacity>

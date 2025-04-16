@@ -1,5 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+import BorderedTextBox from '../BorderedTextBox';
+import Card from '../Card';
+import { COLOURS } from '../Constats';
 
 const Habit = (props: {
   title: string;
@@ -8,13 +13,36 @@ const Habit = (props: {
   intention: string;
 }) => {
   return (
-    <View>
-      <Text>{props.title}</Text>
-      <Text>Current Progress: {props.currProgress}</Text>
-      <Text>Target Progress: {props.targetProgress}</Text>
-      <Text>Intention: {props.intention}</Text>
-    </View>
+    <Card className="gap-y-6 p-4">
+      <View className="w-full flex-row items-center justify-start gap-x-3">
+        <ProgressBar progress={props.currProgress} target={props.targetProgress} />
+        <Text className="text-lg">{props.title}</Text>
+      </View>
+      <BorderedTextBox title="IMPLEMENTATION INTENTION">
+        <Text>{props.intention}</Text>
+      </BorderedTextBox>
+    </Card>
   );
 };
 
 export default Habit;
+
+const ProgressBar = (props: { progress: number; target: number }) => {
+  return (
+    <AnimatedCircularProgress
+      size={80}
+      width={10}
+      fill={(props.progress / props.target) * 100}
+      tintColor={COLOURS.accent}
+      backgroundColor={COLOURS.progressBg}
+      rotation={0}
+      duration={1000}
+      lineCap="round">
+      {(fill) => (
+        <View className="flex items-center justify-center">
+          <Text>{Math.round(fill)}%</Text>
+        </View>
+      )}
+    </AnimatedCircularProgress>
+  );
+};
