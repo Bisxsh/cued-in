@@ -17,7 +17,13 @@ module.exports = {
       warning: '#fbbd23',
       error: '#f87272',
     },
-    extend: {},
+    extend: {
+      fontSize: {
+        '5xl': 48,
+        '6xl': 60,
+        '7xl': 72,
+      },
+    },
   },
   plugins: [],
 };

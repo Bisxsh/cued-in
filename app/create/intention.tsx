@@ -62,7 +62,7 @@ const IntentionScreen = () => {
             emoji="💡"
             hint="Start tiny and specific. The goal is consistency, not intensity!"
             boxHeading="I WILL ..."
-            placeholderText="drink one glass of water"
+            placeholderText="Drink one glass of water"
           />
           <QuestionBox
             colour="primary"
