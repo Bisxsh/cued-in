@@ -10,6 +10,7 @@ module.exports = {
       accent: '#F4C95D',
       background: '#F5F5F5',
       txt: '#333333',
+      hintTxt: '#717171',
       gray: '#A9A9A9',
       info: '#3abff8',
       success: '#36d399',

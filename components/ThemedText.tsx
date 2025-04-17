@@ -3,17 +3,13 @@ import { View, Text } from 'react-native';
 
 const ThemedText = (props: { className?: string; children: React.ReactNode; colour?: string }) => {
   if (props.colour) {
-    return (
-      <View>
-        <Text className={`${props.className} ${props.colour}`}>{props.children}</Text>
-      </View>
-    );
+    return <Text className={`${props.className} ${props.colour}`}>{props.children}</Text>;
   }
 
   return (
-    <View>
-      <Text className={`text-txt ${props.className}`}>{props.children}</Text>
-    </View>
+    <Text className={`text-txt ${props.className} break-words`} ellipsizeMode="tail">
+      {props.children}
+    </Text>
   );
 };
 

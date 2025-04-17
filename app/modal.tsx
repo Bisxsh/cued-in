@@ -6,7 +6,7 @@ import { ScreenContent } from '~/components/ScreenContent';
 export default function Modal() {
   return (
     <>
-      <ScreenContent path="app/modal.tsx" title="Modal" />
+      <ScreenContent path="app/modal.tsx" title="Create" />
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </>
   );

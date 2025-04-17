@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
+import { COLOURS } from '../../Constants';
 import BorderedTextBox from '../BorderedTextBox';
 import Card from '../Card';
-import { COLOURS } from '../Constats';
 
 const Habit = (props: {
   title: string;
@@ -38,9 +38,9 @@ const ProgressBar = (props: { progress: number; target: number }) => {
       rotation={0}
       duration={1000}
       lineCap="round">
-      {(fill) => (
+      {() => (
         <View className="flex items-center justify-center">
-          <Text>{Math.round(fill)}%</Text>
+          <Text>{`${props.progress} / ${props.target}`}</Text>
         </View>
       )}
     </AnimatedCircularProgress>
