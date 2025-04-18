@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
@@ -16,7 +15,7 @@ const Habit = (props: {
     <Card className="gap-y-6 p-4">
       <View className="w-full flex-row items-center justify-start gap-x-3">
         <ProgressBar progress={props.currProgress} target={props.targetProgress} />
-        <Text className="text-lg">{props.title}</Text>
+        <Text className="max-w-[75%] text-lg">{props.title}</Text>
       </View>
       <BorderedTextBox title="IMPLEMENTATION INTENTION">
         <Text>{props.intention}</Text>

@@ -22,18 +22,32 @@ import Habit from '~/components/index/Habit';
 import { StoreType, useStore } from '~/store/store';
 
 export default function Home() {
-  const { habits } = useStore((state: StoreType) => ({
+  const { habits, updateHabit } = useStore((state: StoreType) => ({
     habits: state.habits,
+    updateHabit: state.updateHabit,
   }));
 
-  const habitList = habits.map((habit) => (
-    <Habit
-      key={habit.id}
-      title={habit.title}
-      currProgress={habit.currProgress}
-      targetProgress={habit.targetProgress}
-      intention={habit.intention}
-    />
+  const habitList = habits.map((habit, index) => (
+    <TouchableOpacity
+      onPress={() => {
+        const max = habit.targetProgress;
+        if (habit.currProgress < max) {
+          updateHabit(habit.id, { currProgress: habit.currProgress + 1 });
+        }
+      }}
+      onLongPress={() => {
+        if (habit.currProgress > 0) {
+          updateHabit(habit.id, { currProgress: habit.currProgress - 1 });
+        }
+      }}
+      key={habit.id}>
+      <Habit
+        title={habit.title}
+        currProgress={habit.currProgress}
+        targetProgress={habit.targetProgress}
+        intention={habit.intention}
+      />
+    </TouchableOpacity>
   ));
 
   return (
