@@ -34,6 +34,10 @@ const DateBox = (props: { offset: number }) => {
   let bg = 'bg-primary';
   let textColor = 'text-txt';
 
+  if (date > today) {
+    bg = 'bg-gray';
+  }
+
   if (!completedDays.has(date.toDateString()) && date.valueOf() < today.valueOf()) {
     bg = 'bg-[#D5A8A8]';
     textColor = 'text-txt';

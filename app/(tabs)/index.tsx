@@ -32,7 +32,7 @@ export default function Home() {
         if (habit.currProgress < max) {
           updateHabit(habit.id, { currProgress: habit.currProgress + 1 });
         }
-        if (habit.currProgress === max) {
+        if (habit.currProgress === max - 1) {
           setDayComplete(new Date().toDateString());
         }
       }}
