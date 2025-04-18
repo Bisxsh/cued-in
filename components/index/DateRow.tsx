@@ -21,11 +21,10 @@ const DateRow = () => {
 export default DateRow;
 
 const DateBox = (props: { offset: number }) => {
-  const { completedDays } = useStore((state: StoreType) => ({
+  const { completedDays, dateStarted } = useStore((state: StoreType) => ({
     completedDays: state.completedDays,
+    dateStarted: state.dateStarted,
   }));
-
-  console.log(completedDays);
 
   const today = new Date();
   const date = new Date(today);
@@ -33,10 +32,6 @@ const DateBox = (props: { offset: number }) => {
 
   let bg = 'bg-primary';
   let textColor = 'text-txt';
-
-  if (date > today) {
-    bg = 'bg-gray';
-  }
 
   if (!completedDays.has(date.toDateString()) && date.valueOf() < today.valueOf()) {
     bg = 'bg-[#D5A8A8]';
@@ -46,6 +41,10 @@ const DateBox = (props: { offset: number }) => {
   if (date.valueOf() === today.valueOf() && !completedDays.has(date.toDateString())) {
     bg = 'bg-txt';
     textColor = 'text-background';
+  }
+
+  if (date > today || date < dateStarted) {
+    bg = 'bg-gray';
   }
 
   return (

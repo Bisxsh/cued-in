@@ -47,7 +47,7 @@ const LessonTwo = () => {
             onPress={() => {
               navigation.goBack();
               completedLessons[1] = true;
-              console.log(completedLessons);
+
               const lessonsComplete = completedLessons.filter((lesson) => lesson === true).length;
               setCompletedLessonsCount(lessonsComplete);
               setCompletedLessons(completedLessons);

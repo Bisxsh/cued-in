@@ -6,7 +6,6 @@ import { Habit } from '~/Types';
 
 // Types
 export interface SessionState {
-  name: string;
   dateStarted: Date;
   habits: Habit[];
   habitBeingCreated: Habit | null;
@@ -17,7 +16,7 @@ export interface SessionState {
 }
 
 export interface SessionActions {
-  setName: (name: string) => void;
+  setDateStarted: (date: Date) => void;
   setHabits: (habits: Habit[]) => void;
   addHabit: (habit: Habit) => void;
   removeHabit: (id: number) => void;
@@ -37,8 +36,7 @@ export const useStore = create<StoreType>()(
   persist(
     combine<SessionState, SessionActions>(
       {
-        name: '',
-        dateStarted: new Date(),
+        dateStarted: '',
         habits: [],
         habitBeingCreated: null,
         habitBeingEdited: null,
@@ -47,7 +45,7 @@ export const useStore = create<StoreType>()(
         completedLessonsCount: 0,
       },
       (set) => ({
-        setName: (name) => set({ name }),
+        setDateStarted: (date) => set({ dateStarted: date }),
         setHabits: (habits) => set({ habits }),
         addHabit: (habit) => set((state) => ({ habits: [...state.habits, habit] })),
         removeHabit: (id) =>
@@ -98,7 +96,6 @@ export const useStore = create<StoreType>()(
             state: {
               ...value.state,
               completedDays: Array.from(value.state.completedDays), // Serialize Set
-              dateStarted: value.state.dateStarted.toString(), // Serialize Date
             },
           };
           await AsyncStorage.setItem(key, JSON.stringify(parsed));

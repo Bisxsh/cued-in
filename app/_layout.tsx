@@ -12,7 +12,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen
+          name="onboarding"
+          options={{ presentation: 'modal', title: 'Welcome!', headerBackButtonMenuEnabled: false }}
+        />
         <Stack.Screen name="create/create" options={{ title: 'Start a new Habit' }} />
         <Stack.Screen name="create/intention" options={{ title: 'Start a new Habit' }} />
         <Stack.Screen
