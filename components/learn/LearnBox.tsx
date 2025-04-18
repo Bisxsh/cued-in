@@ -1,7 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import type { LinkProps } from 'expo-router';
-import React from 'react';
 import { Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { type ImageSourcePropType } from 'react-native';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { View, Text } from 'react-native';
 
 const ThemedText = (props: { className?: string; children: React.ReactNode; colour?: string }) => {
@@ -7,7 +6,7 @@ const ThemedText = (props: { className?: string; children: React.ReactNode; colo
   }
 
   return (
-    <Text className={`text-txt ${props.className} break-words`} ellipsizeMode="tail">
+    <Text className={`break-words text-txt ${props.className}`} ellipsizeMode="tail">
       {props.children}
     </Text>
   );

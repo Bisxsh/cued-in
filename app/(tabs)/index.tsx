@@ -1,17 +1,11 @@
+import Empty from '@assets/empty.svg';
 import Wave from '@assets/mascots/wave.svg';
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link } from 'expo-router';
 import { useState } from 'react';
-import {
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Platform, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { COLOURS } from '~/Constants';
 import Heading from '~/components/Heading';
@@ -22,10 +16,14 @@ import Habit from '~/components/index/Habit';
 import { StoreType, useStore } from '~/store/store';
 
 export default function Home() {
-  const { habits, updateHabit } = useStore((state: StoreType) => ({
-    habits: state.habits,
-    updateHabit: state.updateHabit,
-  }));
+  const { habits, updateHabit, setDayComplete, removeCompletedDay } = useStore(
+    (state: StoreType) => ({
+      habits: state.habits,
+      updateHabit: state.updateHabit,
+      setDayComplete: state.setDayComplete,
+      removeCompletedDay: state.removeCompletedDay,
+    })
+  );
 
   const habitList = habits.map((habit, index) => (
     <TouchableOpacity
@@ -34,8 +32,15 @@ export default function Home() {
         if (habit.currProgress < max) {
           updateHabit(habit.id, { currProgress: habit.currProgress + 1 });
         }
+        if (habit.currProgress === max) {
+          setDayComplete(new Date().toDateString());
+        }
       }}
       onLongPress={() => {
+        if (habit.currProgress === habit.targetProgress) {
+          removeCompletedDay(new Date().toDateString());
+        }
+
         if (habit.currProgress > 0) {
           updateHabit(habit.id, { currProgress: habit.currProgress - 1 });
         }
@@ -57,7 +62,16 @@ export default function Home() {
         <DateRow />
         <Separator text="HABITS" />
 
-        {habitList}
+        {habitList.length === 0 ? (
+          <View className="flex h-[80%] items-center justify-center gap-y-8">
+            <ThemedText className="text-center text-2xl font-light">
+              Click the plus icon to create your first habit!
+            </ThemedText>
+            <Empty width={200} height={200} />
+          </View>
+        ) : (
+          habitList
+        )}
       </ScrollView>
 
       <Link href="/create/create" asChild>
