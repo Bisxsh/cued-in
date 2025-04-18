@@ -41,7 +41,7 @@ const DateBox = (props: { offset: number }) => {
       <ThemedText className={`text-lg font-light ${textColor}`}>
         {DAYS_OF_WEEK[date.getDay()]}
       </ThemedText>
-      <ThemedText className={`text-4xl ${textColor} `}>{date.getDate()}</ThemedText>
+      <ThemedText className={`text-3xl ${textColor} `}>{date.getDate()}</ThemedText>
     </View>
   );
 };

@@ -19,6 +19,34 @@ export default function RootLayout() {
           name="learn/lessonOne"
           options={{ title: 'What are Habits', headerShown: false }}
         />
+        <Stack.Screen
+          name="learn/lessonTwo"
+          options={{ title: 'Context Cues', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonThree"
+          options={{ title: 'Identifying Cues', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonFour"
+          options={{ title: 'Breaking Bad Habits', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonFive"
+          options={{ title: 'How Long It Really Takes', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonSix"
+          options={{ title: 'Missing a Day', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonSeven"
+          options={{ title: 'Habit Stacking', headerShown: false }}
+        />
+        <Stack.Screen
+          name="learn/lessonEight"
+          options={{ title: 'Life Discontinuities', headerShown: false }}
+        />
       </Stack>
     </GestureHandlerRootView>
   );
