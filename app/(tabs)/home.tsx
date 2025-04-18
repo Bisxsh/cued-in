@@ -40,7 +40,7 @@ export default function Home() {
       onPress={() => {
         const max = habit.targetProgress;
         if (habit.currProgress < max) {
-          updateHabit(index, { currProgress: habit.currProgress + 1 });
+          updateHabit(habit.id, { currProgress: habit.currProgress + 1 });
         }
         if (habit.currProgress === max - 1) {
           setDayComplete(new Date().toDateString());
@@ -52,7 +52,7 @@ export default function Home() {
         }
 
         if (habit.currProgress > 0) {
-          updateHabit(index, { currProgress: habit.currProgress - 1 });
+          updateHabit(habit.id, { currProgress: habit.currProgress - 1 });
         }
       }}
       key={habit.id}>
