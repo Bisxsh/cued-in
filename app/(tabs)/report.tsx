@@ -40,7 +40,7 @@ export default function Report() {
             3. Answer the remaining questions and submit!
           </ThemedText>
 
-          <View className="flex h-full items-center justify-center">
+          <View className="flex-1 items-center justify-center">
             <ThemedText className="text-center text-2xl font-semibold">Your UUID</ThemedText>
             <TouchableOpacity
               onPress={async () => {

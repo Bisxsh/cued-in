@@ -17,7 +17,7 @@ const Onboarding = () => {
 
   return (
     <SafeAreaView className="relative mx-6 mt-4 h-full flex-1 bg-background">
-      <ScrollView className="flex-1">
+      <ScrollView className="flex-1" keyboardShouldPersistTaps="handled">
         <Heading
           svg={<Wave width={160} height={120} />}
           className="mb-6 flex border-b-2 border-primary">
@@ -26,9 +26,9 @@ const Onboarding = () => {
             <ThemedText className="text-5xl font-semibold color-primary">CuedIn</ThemedText>
           </View>
         </Heading>
-        <View className="h-full flex-1">
+        <View className="flex-1">
           {slide == 1 && (
-            <View className="flex h-full w-full items-center justify-center">
+            <View className="flex w-full items-center justify-center">
               <FirstSlide />
             </View>
           )}
