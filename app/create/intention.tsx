@@ -1,29 +1,44 @@
 import Hoop from '@assets/mascots/hoop.svg';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
+import { COLOURS } from '~/Constants';
 import { Habit } from '~/Types';
 import BorderedTextBox from '~/components/BorderedTextBox';
 import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
 import Separator from '~/components/Separator';
 import ThemedText from '~/components/ThemedText';
+import LearnBox from '~/components/learn/LearnBox';
 import { StoreType, useStore } from '~/store/store';
 
 const IntentionScreen = () => {
   const [action, setAction] = useState('');
   const [context, setContext] = useState('');
   const [target, setTarget] = useState(0);
+  const [showInfo, setShowInfo] = useState(false);
 
   const navigation = useNavigation();
 
-  const { habitBeingCreated, setHabitBeingCreated, addHabit } = useStore((state: StoreType) => ({
-    habitBeingCreated: state.habitBeingCreated,
-    setHabitBeingCreated: state.setHabitBeingCreated,
-    addHabit: state.addHabit,
-  }));
+  const { habitBeingCreated, setHabitBeingCreated, addHabit, completedLessons } = useStore(
+    (state: StoreType) => ({
+      habitBeingCreated: state.habitBeingCreated,
+      setHabitBeingCreated: state.setHabitBeingCreated,
+      addHabit: state.addHabit,
+      completedLessons: state.completedLessons,
+    })
+  );
 
   const createHabit = () => {
     if (habitBeingCreated) {
@@ -64,17 +79,24 @@ const IntentionScreen = () => {
             boxHeading="I WILL ..."
             placeholderText="Drink one glass of water"
           />
-          <QuestionBox
-            colour="primary"
-            value={context}
-            onChangeText={(text) => setContext(text)}
-            number="2. "
-            question="Choose a context that you will perform this action in"
-            emoji="🧠"
-            hint="Habits stick best when tied to a stable cue in your environment."
-            boxHeading="I WILL DO THIS ..."
-            placeholderText="Every time I sit at my desk"
-          />
+          <View className="relative">
+            <TouchableOpacity
+              className="absolute right-0 top-[40%] mr-2 mt-2"
+              onPress={() => setShowInfo(true)}>
+              <MaterialIcons size={24} name="info-outline" color={COLOURS.primary} />
+            </TouchableOpacity>
+            <QuestionBox
+              colour="primary"
+              value={context}
+              onChangeText={(text) => setContext(text)}
+              number="2. "
+              question="Choose a context that you will perform this action in"
+              emoji="🧠"
+              hint="Habits stick best when tied to a stable cue in your environment."
+              boxHeading="I WILL DO THIS ..."
+              placeholderText="Every time I sit at my desk"
+            />
+          </View>
           <QuestionBox
             colour="tertiary"
             value={String(target)}
@@ -101,6 +123,24 @@ const IntentionScreen = () => {
           </View>
         )}
       </ScrollView>
+      <InfoModal
+        visible={showInfo}
+        setVisible={setShowInfo}
+        title="Context Cues"
+        buttonText="Close"
+        body={
+          <>
+            <ThemedText>Unsure what context cues are? Check out this quick lesson!</ThemedText>
+            <LearnBox
+              imagePath={require('../../assets/learn/lesson_2.png')}
+              title="Context Cues"
+              isComplete={completedLessons[1]}
+              href="/learn/lessonTwo"
+              onPress={() => setShowInfo(false)}
+            />
+          </>
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -127,8 +167,8 @@ const QuestionBox = (props: {
           <ThemedText className="sml-4 text-xl font-semibold">{props.question}</ThemedText>
         </View>
         <View className="flex-row justify-start gap-x-2">
-          <ThemedText className="sml-4 text-md text-hintTxt w-6">{props.emoji}</ThemedText>
-          <ThemedText className="sml-4 text-md text-hintTxt flex-1">{props.hint}</ThemedText>
+          <ThemedText className="sml-4 text-md w-6 text-hintTxt">{props.emoji}</ThemedText>
+          <ThemedText className="sml-4 text-md flex-1 text-hintTxt">{props.hint}</ThemedText>
         </View>
       </View>
       <BorderedTextBox
@@ -147,6 +187,41 @@ const QuestionBox = (props: {
         />
       </BorderedTextBox>
     </View>
+  );
+};
+
+const InfoModal = (props: {
+  title: string;
+  body: React.ReactNode;
+  buttonText: string;
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  return (
+    <Modal
+      animationType="slide"
+      className="absolute bottom-0 left-0 right-0 top-0 z-50 h-full w-full"
+      transparent
+      visible={props.visible}
+      onRequestClose={() => {
+        props.setVisible(!props.visible);
+      }}>
+      <Pressable
+        className="centered h-full w-full justify-center bg-gray/80"
+        onPress={() => {
+          props.setVisible(false);
+        }}>
+        <View className="m-6 gap-y-4 bg-background p-6 shadow-md">
+          <ThemedText className="text-center text-4xl">{props.title}</ThemedText>
+          {props.body}
+          <Button
+            title={props.buttonText}
+            onPress={() => props.setVisible(!props.visible)}
+            className="border border-primary bg-background shadow-none"
+          />
+        </View>
+      </Pressable>
+    </Modal>
   );
 };
 

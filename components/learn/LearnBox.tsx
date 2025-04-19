@@ -11,12 +11,13 @@ type LearnBoxProps = {
   imagePath: ImageSourcePropType;
   href: LinkProps['href'];
   isComplete?: boolean;
+  onPress?: () => void;
 };
 
-const LearnBox = ({ title, imagePath, isComplete, href }: LearnBoxProps) => {
+const LearnBox = ({ title, imagePath, isComplete, href, onPress }: LearnBoxProps) => {
   return (
     <Link href={href} asChild>
-      <TouchableOpacity className="my-3 overflow-hidden rounded-xl shadow-md">
+      <TouchableOpacity className="my-3 overflow-hidden rounded-xl shadow-md" onPress={onPress}>
         <ImageBackground
           source={imagePath}
           resizeMode="cover"
