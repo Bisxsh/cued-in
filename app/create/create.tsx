@@ -3,7 +3,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Modal, Pressable } from 'react-native';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { COLOURS, HABITS } from '~/Constants';
@@ -12,6 +11,7 @@ import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
 import Separator from '~/components/Separator';
 import ThemedText from '~/components/ThemedText';
+import ReanimatedCheckbox from '~/components/index/Checkbox';
 import { StoreType, useStore } from '~/store/store';
 
 const CreateScreen = () => {
@@ -80,17 +80,9 @@ const HabitChoice = (props: {
   setActive: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   return (
-    <BouncyCheckbox
-      size={25}
-      fillColor={COLOURS.primary}
+    <ReanimatedCheckbox
       isChecked={props.habit.id === props.active}
-      unFillColor={COLOURS.background}
-      iconStyle={{ borderColor: COLOURS.primary, marginRight: 12 }}
-      disableText
-      innerIconStyle={{ borderWidth: 2 }}
-      onPress={() => {
-        props.setActive(props.habit.id);
-      }}
+      onPress={() => props.setActive(props.habit.id)}
     />
   );
 };

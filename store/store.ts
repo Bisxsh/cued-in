@@ -36,7 +36,7 @@ export const useStore = create<StoreType>()(
   persist(
     combine<SessionState, SessionActions>(
       {
-        dateStarted: '',
+        dateStarted: new Date(),
         habits: [],
         habitBeingCreated: null,
         habitBeingEdited: null,
