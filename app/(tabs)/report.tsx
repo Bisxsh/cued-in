@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import uuid from 'react-native-uuid';
 
 import Progress from '../../assets/mascots/progress.svg';
 
@@ -19,9 +20,19 @@ import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
 import { ScreenContent } from '~/components/ScreenContent';
 import ThemedText from '~/components/ThemedText';
+import { StoreType, useStore } from '~/store/store';
 
 export default function Report() {
   const [showInfo, setShowInfo] = useState(false);
+
+  const { uuid: userUuid, setUuid } = useStore((state: StoreType) => ({
+    uuid: state.uuid,
+    setUuid: state.setUuid,
+  }));
+
+  if (!userUuid) {
+    setUuid(uuid.v4());
+  }
 
   const copyToClipboard = async (str: string) => {
     await Clipboard.setStringAsync(str);
@@ -56,11 +67,11 @@ export default function Report() {
             <ThemedText className="text-center text-2xl font-semibold">Your UUID</ThemedText>
             <TouchableOpacity
               onPress={async () => {
-                await copyToClipboard('1234-5678-9101');
+                await copyToClipboard(userUuid);
               }}
               className="mt-2 flex-row items-center justify-center gap-x-2 rounded-lg border border-accent bg-background p-4">
-              <ThemedText className="text-center text-3xl font-semibold color-accent">
-                1234-5678-9101
+              <ThemedText className="text-md text-center font-semibold color-accent">
+                {userUuid}
               </ThemedText>
               <MaterialIcons name="content-copy" size={24} color={COLOURS.accent} />
             </TouchableOpacity>

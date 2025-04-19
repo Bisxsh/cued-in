@@ -6,6 +6,7 @@ import { Habit } from '~/Types';
 
 // Types
 export interface SessionState {
+  uuid: string;
   dateStarted: Date;
   habits: Habit[];
   habitBeingCreated: Habit | null;
@@ -16,6 +17,7 @@ export interface SessionState {
 }
 
 export interface SessionActions {
+  setUuid: (uuid: string) => void;
   setDateStarted: (date: Date) => void;
   setHabits: (habits: Habit[]) => void;
   addHabit: (habit: Habit) => void;
@@ -36,6 +38,7 @@ export const useStore = create<StoreType>()(
   persist(
     combine<SessionState, SessionActions>(
       {
+        uuid: '',
         dateStarted: new Date(),
         habits: [],
         habitBeingCreated: null,
@@ -45,6 +48,7 @@ export const useStore = create<StoreType>()(
         completedLessonsCount: 0,
       },
       (set) => ({
+        setUuid: (uuid) => set({ uuid }),
         setDateStarted: (date) => set({ dateStarted: date }),
         setHabits: (habits) => set({ habits }),
         addHabit: (habit) => set((state) => ({ habits: [...state.habits, habit] })),
