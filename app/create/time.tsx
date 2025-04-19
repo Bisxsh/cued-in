@@ -108,7 +108,7 @@ const TimeScreen = () => {
             isNumber
           />
         </View>
-        {target && (
+        {target ? (
           <View className="mb-20 flex flex-1 items-center justify-center">
             <Button
               title="Let's Go!"
@@ -116,6 +116,8 @@ const TimeScreen = () => {
               onPress={createHabit}
             />
           </View>
+        ) : (
+          <></>
         )}
         <InfoModal
           visible={showInfo}
