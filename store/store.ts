@@ -7,6 +7,7 @@ import { Habit } from '~/Types';
 // Types
 export interface SessionState {
   uuid: string;
+  lastNotificationSent: Date;
   dateStarted: Date;
   habits: Habit[];
   habitBeingCreated: Habit | null;
@@ -18,6 +19,7 @@ export interface SessionState {
 
 export interface SessionActions {
   setUuid: (uuid: string) => void;
+  setLastNotificationSent: (date: Date) => void;
   setDateStarted: (date: Date) => void;
   setHabits: (habits: Habit[]) => void;
   addHabit: (habit: Habit) => void;
@@ -39,6 +41,7 @@ export const useStore = create<StoreType>()(
     combine<SessionState, SessionActions>(
       {
         uuid: '',
+        lastNotificationSent: new Date(),
         dateStarted: new Date(),
         habits: [],
         habitBeingCreated: null,
@@ -49,6 +52,7 @@ export const useStore = create<StoreType>()(
       },
       (set) => ({
         setUuid: (uuid) => set({ uuid }),
+        setLastNotificationSent: (date) => set({ lastNotificationSent: date }),
         setDateStarted: (date) => set({ dateStarted: date }),
         setHabits: (habits) => set({ habits }),
         addHabit: (habit) => set((state) => ({ habits: [...state.habits, habit] })),

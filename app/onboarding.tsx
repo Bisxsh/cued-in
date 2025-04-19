@@ -1,8 +1,9 @@
 import Wave from '@assets/mascots/wave.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Image, Platform } from 'react-native';
 
 import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
@@ -14,6 +15,21 @@ const Onboarding = () => {
   const { setDateStarted } = useStore((state: StoreType) => ({
     setDateStarted: state.setDateStarted,
   }));
+
+  async function registerForNotifications() {
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permission not granted!');
+      return;
+    }
+
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.HIGH,
+      });
+    }
+  }
 
   return (
     <SafeAreaView className="relative mx-6 mt-4 h-full flex-1 bg-background">
@@ -55,6 +71,7 @@ const Onboarding = () => {
                 else {
                   AsyncStorage.setItem('hasLaunched', 'true');
                   setDateStarted(new Date());
+                  registerForNotifications();
                   router.replace('/home');
                 }
               }}

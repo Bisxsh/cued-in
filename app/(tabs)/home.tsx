@@ -3,11 +3,13 @@ import Wave from '@assets/mascots/wave.svg';
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import { Link, useNavigation, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Platform, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { COLOURS } from '~/Constants';
+import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
 import Separator from '~/components/Separator';
 import ThemedText from '~/components/ThemedText';
@@ -16,14 +18,21 @@ import Habit from '~/components/index/Habit';
 import { StoreType, useStore } from '~/store/store';
 
 export default function Home() {
-  const { habits, updateHabit, setDayComplete, removeCompletedDay } = useStore(
-    (state: StoreType) => ({
-      habits: state.habits,
-      updateHabit: state.updateHabit,
-      setDayComplete: state.setDayComplete,
-      removeCompletedDay: state.removeCompletedDay,
-    })
-  );
+  const {
+    habits,
+    updateHabit,
+    setDayComplete,
+    removeCompletedDay,
+    lastNotificationSent,
+    setLastNotificationSent,
+  } = useStore((state: StoreType) => ({
+    habits: state.habits,
+    updateHabit: state.updateHabit,
+    setDayComplete: state.setDayComplete,
+    removeCompletedDay: state.removeCompletedDay,
+    lastNotificationSent: state.lastNotificationSent,
+    setLastNotificationSent: state.setLastNotificationSent,
+  }));
 
   useEffect(() => {
     AsyncStorage.getItem('hasLaunched').then((value) => {
@@ -33,6 +42,29 @@ export default function Home() {
         router.replace('/home'); // or wherever your main screen is
       }
     });
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (lastNotificationSent < yesterday && habits.length > 0) {
+      habits.forEach((habit) => {
+        if (habit.currProgress !== habit.targetProgress) {
+          Notifications.scheduleNotificationAsync({
+            content: {
+              title: 'Habit Reminder',
+              body: `${habit.intention}`,
+              data: { habitId: habit.id },
+            },
+            trigger: {
+              hour: 7,
+              minute: 0,
+              repeats: true,
+              type: 'daily',
+            } as Notifications.DailyTriggerInput,
+          });
+        }
+      });
+      setLastNotificationSent(new Date());
+    }
   }, []);
 
   const habitList = habits.map((habit, index) => (
