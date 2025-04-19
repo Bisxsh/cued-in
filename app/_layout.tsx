@@ -18,6 +18,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="create/create" options={{ title: 'Start a new Habit' }} />
         <Stack.Screen name="create/intention" options={{ title: 'Start a new Habit' }} />
+        <Stack.Screen name="create/time" options={{ title: 'Start a new Habit' }} />
         <Stack.Screen
           name="learn/lessonOne"
           options={{ title: 'What are Habits', headerShown: false }}

@@ -72,7 +72,7 @@ const TimeScreen = () => {
             <ThemedText className="text-4xl font-semibold color-primary">Intentions</ThemedText>
           </View>
         </Heading>
-        <View className="h-full flex-1">
+        <View className="flex-1">
           <DateQuestionBox
             colour="accent"
             value={habitTime}
@@ -108,9 +108,8 @@ const TimeScreen = () => {
             isNumber
           />
         </View>
-        <Separator text="YOUR NEW HABIT" className="mt-8" />
         {target && (
-          <View className="flex flex-1 items-center justify-center">
+          <View className="mb-20 flex flex-1 items-center justify-center">
             <Button
               title="Let's Go!"
               className="m-4 w-[50%] rounded-md bg-accent text-background shadow-sm"
@@ -118,25 +117,25 @@ const TimeScreen = () => {
             />
           </View>
         )}
+        <InfoModal
+          visible={showInfo}
+          setVisible={setShowInfo}
+          title="Context Cues"
+          buttonText="Close"
+          body={
+            <>
+              <ThemedText>Unsure what context cues are? Check out this quick lesson!</ThemedText>
+              <LearnBox
+                imagePath={require('../../assets/learn/lesson_2.png')}
+                title="Context Cues"
+                isComplete={completedLessons[1]}
+                href="/learn/lessonTwo"
+                onPress={() => setShowInfo(false)}
+              />
+            </>
+          }
+        />
       </ScrollView>
-      <InfoModal
-        visible={showInfo}
-        setVisible={setShowInfo}
-        title="Context Cues"
-        buttonText="Close"
-        body={
-          <>
-            <ThemedText>Unsure what context cues are? Check out this quick lesson!</ThemedText>
-            <LearnBox
-              imagePath={require('../../assets/learn/lesson_2.png')}
-              title="Context Cues"
-              isComplete={completedLessons[1]}
-              href="/learn/lessonTwo"
-              onPress={() => setShowInfo(false)}
-            />
-          </>
-        }
-      />
     </SafeAreaView>
   );
 };

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { View, SafeAreaView, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { COLOURS, HABITS } from '~/Constants';
+import { COLOURS, HABITS, IS_BASIC_VERSION } from '~/Constants';
 import { Habit, HabitOption } from '~/Types';
 import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
@@ -13,8 +13,6 @@ import Separator from '~/components/Separator';
 import ThemedText from '~/components/ThemedText';
 import ReanimatedCheckbox from '~/components/index/Checkbox';
 import { StoreType, useStore } from '~/store/store';
-
-const IS_BASIC_VERSION = true;
 
 const CreateScreen = () => {
   const [active, setActive] = useState(1);

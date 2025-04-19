@@ -1,5 +1,7 @@
 import { HabitOption } from './Types';
 
+export const IS_BASIC_VERSION = true;
+
 export const COLOURS = {
   primary: '#A8D5BA',
   secondary: '#B0C4DE',
