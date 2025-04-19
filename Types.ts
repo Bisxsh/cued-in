@@ -9,4 +9,6 @@ export type Habit = {
   currProgress: number;
   targetProgress: number;
   intention: string;
+  habitTime: Date;
+  reminderTime: Date;
 };

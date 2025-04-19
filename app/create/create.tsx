@@ -14,6 +14,8 @@ import ThemedText from '~/components/ThemedText';
 import ReanimatedCheckbox from '~/components/index/Checkbox';
 import { StoreType, useStore } from '~/store/store';
 
+const IS_BASIC_VERSION = true;
+
 const CreateScreen = () => {
   const [active, setActive] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -57,7 +59,7 @@ const CreateScreen = () => {
           ))}
         </View>
         <Link
-          href="/create/intention"
+          href={IS_BASIC_VERSION ? '/create/time' : '/create/intention'}
           asChild
           onPress={() => setHabitBeingCreated(HABITS.find((h) => h.id === active) as Habit)}>
           <Button title="Next" className="my-4 rounded-lg bg-primary p-5 shadow-sm" />

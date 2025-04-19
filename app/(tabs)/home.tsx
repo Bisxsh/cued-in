@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { Platform, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { COLOURS } from '~/Constants';
-import { Button } from '~/components/Button';
 import Heading from '~/components/Heading';
 import Separator from '~/components/Separator';
 import ThemedText from '~/components/ThemedText';
@@ -48,19 +47,35 @@ export default function Home() {
     if (lastNotificationSent < yesterday && habits.length > 0) {
       habits.forEach((habit) => {
         if (habit.currProgress !== habit.targetProgress) {
-          Notifications.scheduleNotificationAsync({
-            content: {
-              title: 'Habit Reminder',
-              body: `${habit.intention}`,
-              data: { habitId: habit.id },
-            },
-            trigger: {
-              hour: 7,
-              minute: 0,
-              repeats: true,
-              type: 'daily',
-            } as Notifications.DailyTriggerInput,
-          });
+          if (habit.intention === '') {
+            Notifications.scheduleNotificationAsync({
+              content: {
+                title: 'Habit Reminder',
+                body: `Don't forget to do your habit!`,
+                data: { habitId: habit.id },
+              },
+              trigger: {
+                hour: habit.reminderTime.getHours(),
+                minute: habit.reminderTime.getMinutes(),
+                repeats: true,
+                type: 'daily',
+              } as Notifications.DailyTriggerInput,
+            });
+          } else {
+            Notifications.scheduleNotificationAsync({
+              content: {
+                title: 'Habit Reminder',
+                body: `${habit.intention}`,
+                data: { habitId: habit.id },
+              },
+              trigger: {
+                hour: 7,
+                minute: 0,
+                repeats: true,
+                type: 'daily',
+              } as Notifications.DailyTriggerInput,
+            });
+          }
         }
       });
       setLastNotificationSent(new Date());
