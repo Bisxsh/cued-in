@@ -112,8 +112,8 @@ const IntentionScreen = () => {
           />
         </View>
         <Separator text="YOUR NEW HABIT" className="mt-8" />
-        {action && context && target && (
-          <View className="flex flex-1 items-center justify-center">
+        {action && context && target ? (
+          <View className="mb-20 flex flex-1 items-center justify-center">
             <Text className="text-2xl font-bold text-primary">{context},</Text>
             <Text className="text-2xl font-bold text-secondary">I will {action}.</Text>
             <Button
@@ -122,6 +122,8 @@ const IntentionScreen = () => {
               onPress={createHabit}
             />
           </View>
+        ) : (
+          <></>
         )}
       </ScrollView>
       <InfoModal

@@ -24,6 +24,8 @@ export default function Home() {
     removeCompletedDay,
     lastNotificationSent,
     setLastNotificationSent,
+    formReminderStartDate,
+    setFormReminderStartDate,
   } = useStore((state: StoreType) => ({
     habits: state.habits,
     updateHabit: state.updateHabit,
@@ -31,6 +33,8 @@ export default function Home() {
     removeCompletedDay: state.removeCompletedDay,
     lastNotificationSent: state.lastNotificationSent,
     setLastNotificationSent: state.setLastNotificationSent,
+    formReminderStartDate: state.formReminderStartDate,
+    setFormReminderStartDate: state.setFormReminderStartDate,
   }));
 
   useEffect(() => {
@@ -41,6 +45,24 @@ export default function Home() {
         router.replace('/home'); // or wherever your main screen is
       }
     });
+
+    if (!formReminderStartDate) {
+      const startDate = new Date();
+      startDate.setHours(20, 0, 0, 0);
+      setFormReminderStartDate(startDate);
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Report Reminder',
+          body: "Don't forget to report your progress today!",
+          data: { type: 'formReminder' },
+        },
+        trigger: {
+          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+          seconds: 60 * 60 * 24 * 3,
+          repeats: true,
+        },
+      });
+    }
 
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);

@@ -8,6 +8,7 @@ import { Habit } from '~/Types';
 export interface SessionState {
   uuid: string;
   lastNotificationSent: Date;
+  formReminderStartDate: Date;
   dateStarted: Date;
   habits: Habit[];
   habitBeingCreated: Habit | null;
@@ -21,6 +22,7 @@ export interface SessionActions {
   setUuid: (uuid: string) => void;
   setLastNotificationSent: (date: Date) => void;
   setDateStarted: (date: Date) => void;
+  setFormReminderStartDate: (date: Date) => void;
   setHabits: (habits: Habit[]) => void;
   addHabit: (habit: Habit) => void;
   removeHabit: (id: number) => void;
@@ -43,6 +45,7 @@ export const useStore = create<StoreType>()(
         uuid: '',
         lastNotificationSent: new Date(),
         dateStarted: new Date(),
+        formReminderStartDate: new Date(),
         habits: [],
         habitBeingCreated: null,
         habitBeingEdited: null,
@@ -54,6 +57,7 @@ export const useStore = create<StoreType>()(
         setUuid: (uuid) => set({ uuid }),
         setLastNotificationSent: (date) => set({ lastNotificationSent: date }),
         setDateStarted: (date) => set({ dateStarted: date }),
+        setFormReminderStartDate: (date) => set({ formReminderStartDate: date }),
         setHabits: (habits) => set({ habits }),
         addHabit: (habit) => set((state) => ({ habits: [...state.habits, habit] })),
         removeHabit: (id) =>

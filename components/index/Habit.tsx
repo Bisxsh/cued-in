@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-import { COLOURS } from '../../Constants';
+import { COLOURS, IS_BASIC_VERSION } from '../../Constants';
 import BorderedTextBox from '../BorderedTextBox';
 import Card from '../Card';
 
@@ -17,9 +17,11 @@ const Habit = (props: {
         <ProgressBar progress={props.currProgress} target={props.targetProgress} />
         <Text className="max-w-[75%] text-lg">{props.title}</Text>
       </View>
-      <BorderedTextBox title="IMPLEMENTATION INTENTION">
-        <Text>{props.intention}</Text>
-      </BorderedTextBox>
+      {!IS_BASIC_VERSION && (
+        <BorderedTextBox title="IMPLEMENTATION INTENTION">
+          <Text>{props.intention}</Text>
+        </BorderedTextBox>
+      )}
     </Card>
   );
 };
